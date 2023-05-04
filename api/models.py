@@ -27,6 +27,10 @@ class Cakes(models.Model):
     ]
     layers=models.CharField(max_length=30,choices=layer_options,default="one")
 
+    @property
+    def cake_review(self):
+        return Reviews.objects.filter(cake=self)
+
     def __str__(self):
         return self.name
     
@@ -56,6 +60,7 @@ class Orders(models.Model):
     curntDate=datetime.date.today()
     expDate=curntDate+datetime.timedelta(days=2)
     expected_deliverydate=models.DateField(default=expDate)
+    matter=models.CharField(max_length=250,null=True)
 
 
 class Cart(models.Model):
